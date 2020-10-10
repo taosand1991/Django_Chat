@@ -9,6 +9,7 @@
 /coverage
 
 # production
+build
 db.sqlite3
 .env
 
