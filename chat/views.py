@@ -100,14 +100,24 @@ def stop_thread(request):
 def create_thread(request):
     other_user = request.data['other_user']
     first_user = request.user
-    second_user = User.objects.get(username__iexact=other_user)
-    if second_user is None:
-        data = 'The username is invalid'
-        return Response(data, status=status.HTTP_400_BAD_REQUEST)
-    else:
+    try:
+        second_user = User.objects.get(username__iexact=other_user)
+        if second_user == first_user:
+            data = 'You cannot add yourself in the chat'
+            return Response(data, status=status.HTTP_200_OK)
         Thread.objects.create(first_user=first_user, second_user=second_user)
         data = 'contacts created'
         return Response(data, status=status.HTTP_200_OK)
+    except:
+        data = 'The username is invalid'
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    # if second_user is None:
+    #     data = 'The username is invalid'
+    #     return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    # else:
+    #     Thread.objects.create(first_user=first_user, second_user=second_user)
+    #     data = 'contacts created'
+    #     return Response(data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

@@ -5,11 +5,14 @@ import axios from 'axios';
 
 function Create(props) {
     const {create, createContact} = React.useContext(authContext);
-    const [state, setState] = useState({username:'', loading:false});
+    const [state, setState] = useState({username:'', loading:false, errors:{},});
 
     const handleChange = (e) => {
         const {value} = e.target;
-        setState({username : value})
+        setState(prevState => ({
+            ...prevState,
+            username:value,
+        }))
     };
 
     const handleSubmit = async(e) => {
@@ -29,7 +32,8 @@ function Create(props) {
                 setState(prevState => ({
                     ...prevState,
                     loading:false,
-                    username:''
+                    username:'',
+
                 }));
                 createContact();
             }, 1500)
@@ -39,9 +43,15 @@ function Create(props) {
                     ...prevState,
                     loading:false,
                 }));
-            console.log(e.response.data)
+            let errors = {};
+            errors['username'] = e.response.data;
+            setState(prevState => ({
+                ...prevState,
+                errors:errors,
+            }))
         }
     };
+
     return (
         <Fragment>
             <div className={create ? "fixed-create showing" : "fixed-create"}>
@@ -49,6 +59,7 @@ function Create(props) {
                     {state.loading && <div className='spinner'/> }
                     <h5>Create Your contact</h5>
                     <i onClick={createContact} className='fa fa-close'/>
+                    {state.errors.username && state.errors.username && <small style={{color:'red'}}>{state.errors.username && state.errors.username}</small>}
                     <form onSubmit={handleSubmit}>
                         <input className='input-class'
                                value={state.username}
