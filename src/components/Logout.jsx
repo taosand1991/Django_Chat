@@ -6,7 +6,7 @@ function Logout(props) {
     window.location.href = '/login';
     const logMeOut = async() => {
         try{
-            await axios.post('http://localhost:8000/api/logout', {}, {
+            await axios.post('/api/logout', {}, {
                 headers:{'Authorization': `JWT ${Token.userToken}`}
             })
         }catch (e) {

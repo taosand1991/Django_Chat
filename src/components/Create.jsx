@@ -22,7 +22,7 @@ function Create(props) {
             other_user: state.username,
         };
         try {
-            await axios.post('http://localhost:8000/api/create', contactObject, {
+            await axios.post('/api/create', contactObject, {
                 headers:{'Authorization': `JWT ${Token.userToken}`}
             });
             setTimeout(() => {

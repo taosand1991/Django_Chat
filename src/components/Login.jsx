@@ -45,7 +45,7 @@ class Login extends Component {
             password: login_account.password,
         };
         try {
-            const response = await axios.post('http://localhost:8000/auth/login/', object);
+            const response = await axios.post('/auth/login/', object);
             localStorage.setItem('token', response.data.token);
             setTimeout(() => {
                 this.setState({loading: false});
@@ -75,7 +75,7 @@ class Login extends Component {
         form_data.append('password2', reg_account.password_2);
         form_data.append('thumbnail', image, image.name );
         try{
-            const response = await axios.post('http://localhost:8000/api/user/', form_data, {
+            const response = await axios.post('/api/user/', form_data, {
                 headers:{'Content-Type': 'multipart/form-data'}
             });
             localStorage.setItem('token', response.data.token);

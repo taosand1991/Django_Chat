@@ -90,7 +90,7 @@ class MainComponent extends Component {
     };
 
     getRooms = async() => {
-        const apiCall = 'http://localhost:8000/api/rooms/';
+        const apiCall = '/api/rooms/';
         try{
                 const {data:rooms} = await axios.get(apiCall);
             this.setState({rooms});
@@ -101,7 +101,7 @@ class MainComponent extends Component {
 
     getRoomMessages = async(room) => {
         this.setState({roomNumber:room, clicked:true, is_group:true, is_thread:false});
-        const apiCall = `http://localhost:8000/api/room/${room}/`;
+        const apiCall = `/api/room/${room}/`;
         try{
                 const roomMessag = await axios.get(apiCall, {
                     headers:{'Authorization' : `JWT ${Token.userToken}`}
@@ -117,7 +117,7 @@ class MainComponent extends Component {
     getThreads = async() => {
 
         try {
-            const {data:threads} = await axios.get('http://localhost:8000/api/list', {
+            const {data:threads} = await axios.get('/api/list', {
                 headers: {'Authorization': `JWT ${Token.userToken}`}
             });
             this.setState({threads})
@@ -132,7 +132,7 @@ class MainComponent extends Component {
         thread['second_user'] = second_user;
         this.setState({thread,  is_thread:true, is_group:false});
         try {
-            const {data:threadRoom} = await axios.get(`http://localhost:8000/api/get_thread/${first_user}/${second_user}/`)
+            const {data:threadRoom} = await axios.get(`/api/get_thread/${first_user}/${second_user}/`)
             this.setState({threadRoom});
             const bodyHeight = document.querySelector('.thread-body');
             bodyHeight.scroll(0, bodyHeight.scrollHeight);

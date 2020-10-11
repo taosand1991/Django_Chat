@@ -18,11 +18,11 @@ function Footer(props) {
             };
             setState({message: value});
             if (value.length > 0) {
-                await axios.post('http://localhost:8000/api/typing', roomObject, {
+                await axios.post('/api/typing', roomObject, {
                     headers: {'Authorization': `JWT ${Token.userToken}`}
                 })
             } else {
-                await axios.get('http://localhost:8000/api/stop')
+                await axios.get('/api/stop')
             }
         } else {
             const threadObject = {
@@ -31,11 +31,11 @@ function Footer(props) {
             };
             setState({message: value});
             if (value.length > 0) {
-                await axios.post('http://localhost:8000/api/thread-typing', threadObject, {
+                await axios.post('/api/thread-typing', threadObject, {
                     headers: {'Authorization': `JWT ${Token.userToken}`}
                 })
             } else {
-                await axios.get('http://localhost:8000/api/stop-thread')
+                await axios.get('/api/stop-thread')
             }
         }
 
@@ -51,8 +51,8 @@ function Footer(props) {
             };
             setState({message: ''});
             try {
-                await axios.post('http://localhost:8000/api/messages/', messageObject);
-                await axios.get('http://localhost:8000/api/stop');
+                await axios.post('/api/messages/', messageObject);
+                await axios.get('/api/stop');
                 // getRoomMessages(roomNumber);
                 // broadcastMessage()
             } catch (e) {
@@ -66,8 +66,8 @@ function Footer(props) {
         };
         setState({message: ''});
         try {
-            await axios.post('http://localhost:8000/api/messages/', messageObject);
-            await axios.get('http://localhost:8000/api/stop-thread');
+            await axios.post('/api/messages/', messageObject);
+            await axios.get('/api/stop-thread');
         } catch (e) {
             console.log(e.response.data)
         }
