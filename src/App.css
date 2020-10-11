@@ -828,7 +828,7 @@
         display: flex;
         background: white;
         border-radius: 30px;
-        position: static;
+        position: relative;
     }
 
     .fixed-create {
