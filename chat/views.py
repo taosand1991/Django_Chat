@@ -6,11 +6,12 @@ from .serializers import *
 from django.db.models import Q
 import pusher
 from django.utils import timezone
+import os
 
 pusher_client = pusher.Pusher(
     app_id='1085616',
-    key='ca1b9cebe8e517e3529c',
-    secret='12a873d3df74dac8dd3e',
+    key=os.environ.get('PUSHER_KEY'),
+    secret=os.environ.get('PUSHER_SECRET'),
     cluster='eu',
     ssl=True
 )
